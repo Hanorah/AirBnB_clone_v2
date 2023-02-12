@@ -4,7 +4,6 @@
 """
 import uuid
 from datetime import datetime
-import models
 
 
 class BaseModel:
@@ -21,7 +20,7 @@ class BaseModel:
            self.id = str(uuid.uuid4())
            self.created_at = datetime.now()
            self.updated_at = datetime.now()
-           models.storage.new(self)
+           # models.storage.new(self)
        else:
            kwargs["created_at"] = datetime.strptime(kwargs["created_at"],
                                                     "%Y-%m-%dT%H:%M:%S.%f")
@@ -32,17 +31,7 @@ class BaseModel:
                if "__class__" not in key:
                    setattr(self, key, value)
 
-        def __str__(self):
-            """
-            Returns string representation of BaseModel class
-            :param self:
-            :return:
-            """
-            return ("[{}] ({}) {}".format(self.__class__.__name__,
-                                          self.id, self.__dict__))
-
-
-        def __repr__(self):
+       def __repr__(self):
             """
             Returns string representation of BaseModel class
             :param self:
@@ -55,11 +44,9 @@ class BaseModel:
         def save(self):
             """
             Update the updated_at attribute
-            :param self:
-            :return:
+
             """
             self.updated_at = datetime.now()
-            models.storage.save()
 
 
         def to_dict(self):
