@@ -28,9 +28,9 @@ class BaseModel:
            kwargs["updated_at"] = datetime.strptime(kwargs["updated_at"],
                                                     "%Y-%m-%dT%H:%M:%S.%f")
 
-           for k, v in kwargs.items():
-               if "__class__" not in k:
-                   setattr(self, k, v)
+           for key, value in kwargs.items():
+               if "__class__" not in key:
+                   setattr(self, key, value)
 
         def __str__(self):
             """
@@ -62,5 +62,17 @@ class BaseModel:
             models.storage.save()
 
 
+        def to_dict(self):
+            """
+            Returns a dictionary representation of BaseModels class
+            :param self:
+            :return:
+            """
+            cp_dict = dict(self.__dict__)
+            cp_dict['__class__'] = self.__class__.__name__
+            cp_dict['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+            cp_dict['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+
+            return (cp_dict)
 
 
