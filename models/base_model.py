@@ -42,3 +42,5 @@ class BaseModel:
         copy_dict['__class__'] = self.__class__.__name__
         copy_dict['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
         copy_dict['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+
+        return (copy_dict)
