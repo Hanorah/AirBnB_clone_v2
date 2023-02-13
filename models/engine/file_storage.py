@@ -36,3 +36,17 @@ class FileStorage:
         
         with open(FileStorage.__file__path, mode="w", encoding="UTF8") as fd:
             json.dump(objects_dict, fd)
+    
+    def reload(self):
+        """Deserializes the JSON file to __objects."""
+
+        try:
+            with open(FileStorage.__file__path, encoding="UTF8") as fd:
+                FileStorage.__objects = json.load(fd)
+            for k, v in FileStorage.__objects.items():
+                class_name = v["__class__"]
+                class_name = models.classes[class_name]
+                FileStorage.__objects[k] = class_name(**v)
+
+        except FileNotFoundError:
+            pass
