@@ -1,11 +1,9 @@
 footer {
   position: fixed;
   bottom: 0;
-  width: 100%;
   background-color: #00ff00;
   height: 60px;
-}
-footer p {
+  width: 100%;
   text-align: center;
-  margin: 20px;
+  line-height: 30px;
 }
